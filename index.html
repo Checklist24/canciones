@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Canciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .counter-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="counter-box">
+                    <h1 class="mb-4">Contador de Canciones</h1>
+                    <p class="lead">¿Cuántas veces dijo Vero que le gusta esta canción?</p>
+                    <h2 id="count-display" class="display-4">0</h2>
+                    <div class="mt-4">
+                        <button id="add-btn" class="btn btn-success btn-lg">Añadir</button>
+                        <button id="reset-btn" class="btn btn-danger btn-lg">Resetear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Obtener el contador inicial desde el almacenamiento local o establecerlo en 0
+        let count = localStorage.getItem('veroLikesCount') ? parseInt(localStorage.getItem('veroLikesCount')) : 0;
+
+        // Actualizar la visualización del contador
+        const updateDisplay = () => {
+            document.getElementById('count-display').textContent = count;
+        };
+
+        // Incrementar el contador
+        document.getElementById('add-btn').addEventListener('click', () => {
+            count++;
+            localStorage.setItem('veroLikesCount', count);
+            updateDisplay();
+        });
+
+        // Resetear el contador
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas resetear el contador?')) {
+                count = 0;
+                localStorage.setItem('veroLikesCount', count);
+                updateDisplay();
+            }
+        });
+
+        // Mostrar el contador inicial
+        updateDisplay();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
